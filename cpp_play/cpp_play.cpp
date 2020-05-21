@@ -3,89 +3,95 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
-#include "Person.h"
-#include "Employee.h"
+#include <list>
+#include <memory>
 
 using namespace std;
 
-namespace life {
-    int meaning = 42;
-    //pointer to meaning
-    int* pm = &meaning;
-    //reference to meaning
-    int& rm = meaning;
-}
+#pragma pack(push, 1)
+class Person {
+public:
+    char name[5];
+    int age;
+    double weight;
+};
+#pragma pack(pop)
 
-inline void enc(int &a) { a++; }
 
 int main()
 {
-    cout << "Hello World!\n";
+    /*
+    https://stackoverflow.com/questions/3318410/pragma-pack-effect
+    Padding example --> shuled be 5+4+8=17 but it's will print 24
+            1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+    name    x   x   x   x   x   p a d d i n g
+    age     x   x   x   x   p a d d d i n g 
+    weight  x   x   x   x   x   x   x   x
 
-    using namespace life;
-    cout << "meaning value is " << meaning << endl;
-    *pm = 50;
-    cout << "meaning value is " << meaning << endl;
-    rm = 42;
-    cout << "meaning value is " << meaning << endl;
+    when we add pragma pack it's tell the comlier to not add padding 
+    */
+    cout << "Size of Person is:" << sizeof(Person) << endl;
 
-    enc(meaning);
-    cout << "meaning value is " << meaning << endl;
+    /*
+    Vector examples
+        Iteration
+        How the capacity is grown (because it's array inside)
+    */
+    vector<string> strings;
 
+    strings.push_back("one");
+    strings.push_back("two");
+    strings.push_back("three");
+    strings.push_back("four");
 
-    int a[]{ 1, 2, 3, 4, 5, 6 };
-
-    for (int i = 0; i < 6; i++)
-        cout << a[i] << "\t";
-    cout << endl;
-
-    int *p = a;
-    int *e = p + 6;
-    for(p, e; p != e; p++)
-        cout << *p << "\t";
-    cout << endl;
-
-
-    auto ba = begin(a);
-    auto ea = end(a);
-    for (; ba!=ea; ba++)
-        cout << *ba << "\t";
-    cout << endl;
-
-    for (; ba != ea; ba++)
-        cout << *ba << "\t";
-    cout << endl;
-
-    vector<int> v{ 5, 6, 7, 8, 9, 10 };
-    auto bv = v.begin();
-    auto ev = v.end();
-
-    for(; bv != ev; bv++)
-        cout << *bv << "\t";
-    cout << endl;
-
-    Person *p1 = new Person(40, "benny", 4, "hin dor");
-    p1->great();
-
-    Person *p2 = new Person(*p1);
-    p2->address->street = "zfat";
-
-    p1->great();
-    p2->great();
+    cout << "Iterate string vector" << endl;
+    for (auto item = strings.begin(); item != strings.end(); item++)
+        cout << *item << endl;
     
+    vector<int> integers;
+    int capacity = integers.capacity();
+    for (int i = 1; i < 100; i++)
+    {
+        integers.push_back(i);
+
+        if (capacity != integers.capacity())
+        {
+            capacity = integers.capacity();
+            cout << "Capacity: " << integers.capacity() << " Size: " << integers.size() << endl;
+        }
+    }
+
+ 
+    /*
+    list example 
+    list is differ from vector, it's implemented as linked list so we can add items to the front or any place
+    */
+    
+    list<int> list_items;
+    list_items.push_back(1);
+    list_items.push_back(2);
+    list_items.push_back(4);
+
+    auto it = list_items.begin();
+    it++; //1
+    it++; //2
+    list_items.insert(it, 3);
+
+    for (auto iterator = list_items.begin(); iterator != list_items.end(); iterator++)
+    {
+        cout << "list " << *iterator << endl;
+    }
+
     cout << endl << endl;
-  
-    Employee emp = Employee(32, "benny", 4, "hin dor", "checkpoint");
-    Employee&emp2 = static_cast<Employee&>(emp);
 
-    emp2.great();
+    for (auto iterator = list_items.begin(); iterator != list_items.end(); iterator++)
+    {
+        cout << "list " << *iterator << endl;
 
-    
-
-    getchar();
-    
-    delete p1;
-    delete p2;
+        if (*iterator == 2)
+        {
+            iterator = list_items.erase(iterator);
+        }
+    }    
 }
 

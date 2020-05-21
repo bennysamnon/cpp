@@ -1,20 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Employee.cpp" />
-    <ClCompile Include="cpp_play.cpp" />
-    <ClCompile Include="Person.cpp" />
+    <ClCompile Include="cpp_play.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Employee.h" />
-    <ClInclude Include="Person.h" />
-    <ClInclude Include="Address.h">
-      <Filter>NewFilter1</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="NewFilter1">
+    <Filter Include="Header Files">
       <UniqueIdentifier>{fa826280-aeeb-4486-8899-56023eac441e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{12d7982e-16c5-4188-bfae-98950a61188b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

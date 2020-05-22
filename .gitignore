@@ -34,3 +34,10 @@
 /.vs/*
 *.log
 *.txt
+
+x64/*
+Debug/*
+Release/*
+*/Debug/*
+*/Release/*
+*/x64/*
